@@ -2,29 +2,31 @@ package vn.hoidanit.laptopshop.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
+@Table(name = "users")
 public class User {
-
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String fullName;
-    private String password;
-    private String address;
-    private String phone;
+
     private String email;
 
-    public User(long id, String fullName, String password, String address, String phone) {
-        this.id = id;
-        this.fullName = fullName;
-        this.password = password;
-        this.address = address;
-        this.phone = phone;
-    }
+    private String password;
+    private String fullName;
+    private String address;
+    private String phone;
 
-    public User() {
-    }
+    private String avatar;
+
+    // roleId
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
     public long getId() {
         return id;
@@ -34,12 +36,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -48,6 +50,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getAddress() {
@@ -66,16 +76,9 @@ public class User {
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Override
     public String toString() {
-        return "User [id=" + id + ", fullName=" + fullName + ", password=" + password + ", address=" + address + ", phone=" + phone + ", email=" + email + "]";
+        return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
+                + ", address=" + address + ", phone=" + phone + "]";
     }
 }
