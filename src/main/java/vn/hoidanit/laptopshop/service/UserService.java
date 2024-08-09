@@ -21,6 +21,10 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
+    public User getUserByEmail(String email) {
+        return this.userRepository.findByEmail(email);
+    }
+
     public List<User> getAllUsers() {
         return this.userRepository.findAll();
     }
@@ -49,9 +53,17 @@ public class UserService {
 
     public User registerDTOtoUser(RegisterDTO registerDTO) {
         User user = new User();
+        user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
         user.setEmail(registerDTO.getEmail());
         user.setPassword(registerDTO.getPassword());
-        user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
         return user;
+    }
+
+    public boolean checkEmailExist(String email) {
+        return this.userRepository.existsByEmail(email);
+    }
+
+    public User getUserByUsername(String email) {
+        return this.userRepository.findByEmail(email);
     }
 }

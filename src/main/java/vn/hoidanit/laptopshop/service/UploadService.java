@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.ServletContext;
+import vn.hoidanit.laptopshop.domain.User;
 
 @Service
 public class UploadService {
